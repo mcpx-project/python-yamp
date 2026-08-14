@@ -1,0 +1,20 @@
+[project]
+name = "yamp"
+version = "0.0.0"
+description = "Yet Another MCP Proxy, Python arm"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+
+[project.urls]
+Homepage = "https://github.com/mcpx-project/python-yamp"
+Documentation = "https://github.com/mcpx-project/docs"
+# σ1 (the single dependency exception): the shipped data plane is stdlib-only except for a
+# JSON Schema validator, which stdlib lacks and which cannot be hand-rolled to
+# byte-parity. The Rust arm takes the `jsonschema` crate; the corpus pins
+# accept/reject verdicts only.
+dependencies = ["jsonschema>=4"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "--cov=yamp --cov-report=term-missing --cov-fail-under=90"
